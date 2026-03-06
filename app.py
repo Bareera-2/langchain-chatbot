@@ -62,7 +62,7 @@ def main():
             break
 
         if user_input.lower() == "clear":
-            chat_history.clear
+            chat_history.clear()
             print("History cleared!, Starting fresh!")
             continue
         
