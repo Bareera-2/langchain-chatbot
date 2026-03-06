@@ -2,10 +2,18 @@ from langchain_ollama import ChatOllama
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage, trim_messages
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers import StrOutputParser
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+MODEL_NAME = os.getenv("MODEL_NAME")
+TEMPERATURE = os.getenv("TEMPERATURE")
+MAX_TURNS = os.getenv("MAX_TURNS") 
 
 llm = ChatOllama(
-        model="qwen2.5-coder:3b",
-        temperature = 0.7
+        model = MODEL_NAME,
+        temperature = TEMPERATURE
         )
 
 prompt = ChatPromptTemplate.from_messages(
@@ -20,7 +28,6 @@ chain = prompt | llm | StrOutputParser()
 
 chat_history = []
 
-MAX_TURNS = 10  # 10 exahnges = 20 messages(Human + AI)
 
 def chat(question):
     current_turns = len(chat_history) // 2
@@ -62,7 +69,7 @@ def main():
             break
 
         if user_input.lower() == "clear":
-            chat_history.clear
+            chat_history.clear()
             print("History cleared!, Starting fresh!")
             continue
         
