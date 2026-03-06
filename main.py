@@ -7,9 +7,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-MODEL_NAME = os.getenv("MODEL_NAME")
-TEMPERATURE = os.getenv("TEMPERATURE")
-MAX_TURNS = os.getenv("MAX_TURNS") 
+MODEL_NAME = os.getenv("MODEL_NAME", "qwen2.5-coder:3b")
+TEMPERATURE = float(os.getenv("TEMPERATURE", "0.7"))
+MAX_TURNS = int(os.getenv("MAX_TURNS", "5") )
 
 llm = ChatOllama(
         model = MODEL_NAME,
